@@ -1,2 +1,0 @@
-# cubextest
-Created with CodeSandbox
