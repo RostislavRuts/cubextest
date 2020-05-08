@@ -1,6 +1,5 @@
 <template>
   <form @submit.prevent="addSubList">
-    <p>{{ this.title }}</p>
     <input type="text" v-model="title" placeholder="sublist">
     <button type="submit">Add sublist</button>
   </form>
@@ -16,7 +15,15 @@ export default {
   },
   methods: {
     addSubList() {
-      console.log("submit", this.title);
+      if (this.title.trim()) {
+        const newSubList = {
+          title: this.title,
+          completed: false,
+          sublist: []
+        };
+        this.$emit("add-sub-list", newSubList);
+        this.title = "";
+      }
     }
   }
 };

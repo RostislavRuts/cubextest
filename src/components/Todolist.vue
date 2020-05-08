@@ -23,6 +23,7 @@
         v-bind:todo="item"
         v-bind:id="index"
         v-on:remove-list="removeItem"
+        @add-sub-list="addSubList"
       />
 
       <AddNewList @add-main-list="addList"/>
@@ -54,6 +55,11 @@ export default {
     addList(newList) {
       //console.log(newList);
       this.$emit('add-list', newList)
+    },
+
+    addSubList(newSubList){
+      this.$emit('add-sub-list', newSubList)
+      //console.log(newSubList)
     }
   }
 };

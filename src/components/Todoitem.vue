@@ -4,16 +4,16 @@
     что б воспользоваться этим компонентом мы должны его импортировать и зарегестрировать в App.vue-->
 <template>
   <li>
-    <span>
-      <b>{{todo.title}}</b>
-    </span>
+      <span>
+        <b>{{todo.title}}</b>
+      </span>
 
-    <AddSubList/>
+      <AddSubList @add-sub-list="addSubList"/>
 
-    <!--v-on - добавляет событие к елементу
-        $emit(1й параметр - название события, 2й - какие-то передаваемые данные) - создает события
-    Елемент Todoitem дочерний у компонента Todolist поэтому он должен получить это событие-->
-    <button class="rm" v-on:click="$emit('remove-list', id + 1)">&times;</button>
+      <!--v-on - добавляет событие к елементу
+          $emit(1й параметр - название события, 2й - какие-то передаваемые данные) - создает события
+      Елемент Todoitem дочерний у компонента Todolist поэтому он должен получить это событие-->
+      <button class="rm" v-on:click="$emit('remove-list', id + 1)">&times;</button>
   </li>
 </template>
 
@@ -36,6 +36,14 @@ export default {
   },
   components: {
     AddSubList
+  },
+  methods: {
+    addSubList(newSubList) {
+      //получаем id родителя newSubList
+      newSubList.id = this.id;
+      this.$emit("add-sub-list", newSubList);
+      //console.log(newSubList, this.id);
+    }
   }
 };
 </script>

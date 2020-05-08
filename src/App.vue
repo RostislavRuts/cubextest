@@ -11,7 +11,12 @@
 
          @remove-list="removeListItem" - один из способов вызвать событие вместо v-on.
     Это событие для удаления ел-та списка(см.24 в файле Todolist.vue)-->
-    <Todolist v-bind:itemsfortodos="todos" @remove-list="removeItem" @add-list="addList"/>
+    <Todolist
+      v-bind:itemsfortodos="todos"
+      @remove-list="removeItem"
+      @add-list="addList"
+      @add-sub-list="addSubList"
+    />
   </div>
 </template>
 <!--
@@ -50,6 +55,15 @@ export default {
     },
     addList(newList) {
       this.todos.push(newList);
+      //console.log(this.todos)
+    },
+    addSubList(newSubList) {
+      let parent = this.todos.findIndex(function(el, index) {
+        return index == newSubList.id;
+      });
+      //console.log(parent, newSubList.id, this.todos[parent].sublist);
+      delete newSubList.id;
+      this.todos[parent].sublist.push(newSubList);
       //console.log(this.todos)
     }
   }
